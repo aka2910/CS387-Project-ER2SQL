@@ -36,7 +36,6 @@ class ER{
         this.entities = [];
         this.relations = [];
     }
-
     addEntity(entity){
         this.entities.push(entity);
     }
@@ -55,6 +54,7 @@ class ER{
 // }
 
 function convert_json_to_ER(json){
+    
 
 }
 

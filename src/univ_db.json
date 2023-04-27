@@ -1,0 +1,104 @@
+{
+  "entities": [
+    {
+      "name": "department",
+      "is_weak": false,
+      "attributes": [
+        {
+          "name": "dept_name",
+          "type": "string",
+          "is_key": true
+        },
+        {
+          "name": "building",
+          "type": "string",
+          "is_key": false
+        },
+        {
+          "name": "budget",
+          "type": "int",
+          "is_key": false
+        }
+      ]
+    },
+    {
+        "name": "student",
+        "is_weak": false,
+        "attributes": [
+          {
+            "name": "ID",
+            "type": "int",
+            "is_key": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "is_key": false
+          },
+          {
+            "name": "tot_cred",
+            "type": "int",
+            "is_key": false
+          }
+        ]
+    },
+    {
+        "name": "instructor",
+        "is_weak": false,
+        "attributes": [
+          {
+            "name": "ID",
+            "type": "int",
+            "is_key": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "is_key": false
+          },
+          {
+            "name": "salary",
+            "type": "int",
+            "is_key": false
+          }
+        ]
+    },
+    {
+        "name": "section",
+        "is_weak": true,
+        "attributes":[
+            {
+                "name": "sec_id",
+                "type": "int",
+                "is_key": true
+            },
+            {
+                "name": "semester",
+                "type": "string",
+                "is_key": true
+            },
+            {
+                "name": "year",
+                "type": "int",
+                "is_key":true
+            }
+        ]
+    },
+    {
+        "name":"time_slot",
+        "is_weak":false,
+        "attributes":[
+            {
+                "name": "time_slot_id",
+                "type": "int",
+                "is_key": true
+            }
+        ]
+    },
+    {
+        "name":"classroom",
+        "is_weak":false,
+    }
+  ],
+  "relations": []
+}
