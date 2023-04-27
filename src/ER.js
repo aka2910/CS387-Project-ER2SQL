@@ -80,6 +80,42 @@ function strong_entity_2sql(entity){
     // end code
 }
 
+function mtmrelation_to_sql(relation){
+    // start code
+    var sql = "CREATE TABLE " + relation.name + " (";
+    e1 = relation.e1;
+    e2 = relation.e2;
+    primary_list = []
+    for (var i=0;i<e1.attributes.length;i++){
+        var attribute = e1.attributes[i];
+        if(attribute.is_key){
+            sql += attribute.name + " " + attribute.data_type;
+            primary_list.push([attribute.name, e1.name]);
+        }
+    }
+    for (var i=0;i<e2.attributes.length;i++){
+        var attribute = e2.attributes[i];
+        if(attribute.is_key){
+            sql += attribute.name + " " + attribute.data_type;
+            primary_list.push([attribute.name, e2.name]);
+        }
+    }
+    sql += " PRIMARY KEY (";
+    for (var i=0;i<primary_list.length;i++){
+        sql += primary_list[i][0];
+        if(i!=primary_list.length-1){
+            sql += ", ";
+        }
+    }
+    for (var i=0;i<primary_list.length;i++){
+        sql += "), FOREIGN KEY (" + primary_list[i][0] + ") REFERENCES " + primary_list[i][1]+",";
+    }
+    sql += "));\n";
+    return sql;
+    // end code
+
+}
+
 
 function convert_ER_to_SQL(er){
     // for each entity, create a table
