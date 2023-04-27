@@ -23,7 +23,12 @@ function convert_json_to_ER(json) {
         var c2 = relation.c2;
         var p1 = relation.p1;
         var p2 = relation.p2;
-        er.addRelation(new Relation(relation.name, e1, e2, c1, c2, p1, p2, relation.is_weak));
+        var attributes = [];
+        for (var j = 0; j < relation.attributes.length; j++) {
+            var attribute = relation.attributes[j];
+            attributes.push(new Attribute(attribute.name, attribute.data_type, attribute.is_key));
+        }
+        er.addRelation(new Relation(relation.name, e1, e2, c1, c2, p1, p2, relation.is_weak, attributes));
     }
     return er;
 }

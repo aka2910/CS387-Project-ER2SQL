@@ -19,7 +19,7 @@ class Attribute{
 }
 
 class Relation{
-    constructor(name, e1,e2,c1,c2,p1,p2, is_weak){
+    constructor(name, e1,e2,c1,c2,p1,p2, is_weak, attribute){
         this.name = name;
         this.e1 = e1 
         this.e2 = e2;
@@ -28,6 +28,7 @@ class Relation{
         this.p1 = p1;
         this.p2 = p2;
         this.is_weak = is_weak;
+        this.attribute = attribute;
     }
 
     addAttribute(attribute){
