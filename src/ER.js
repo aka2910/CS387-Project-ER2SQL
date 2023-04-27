@@ -59,116 +59,116 @@ class ER{
 
 // }
 
-function convert_json_to_ER(json){
+// function convert_json_to_ER(json){
     
 
-}
+// }
 
-function strong_entity_2sql(entity){
-    // start code
-    var sql = "CREATE TABLE " + entity.name + " (";
-    for (var i = 0; i < entity.attributes.length; i++){
-        var attribute = entity.attributes[i];
-        sql += attribute.name + " " + attribute.data_type;
-        if (attribute.is_key){
-            sql += " PRIMARY KEY";
-        }
-        if (i != entity.attributes.length - 1){
-            sql += ", ";
-        }
-    }
-    sql += ");\n";
-    return sql;
-    // end code
-}
+// function strong_entity_2sql(entity){
+//     // start code
+//     var sql = "CREATE TABLE " + entity.name + " (";
+//     for (var i = 0; i < entity.attributes.length; i++){
+//         var attribute = entity.attributes[i];
+//         sql += attribute.name + " " + attribute.data_type;
+//         if (attribute.is_key){
+//             sql += " PRIMARY KEY";
+//         }
+//         if (i != entity.attributes.length - 1){
+//             sql += ", ";
+//         }
+//     }
+//     sql += ");\n";
+//     return sql;
+//     // end code
+// }
 
-function mtmrelation_to_sql(relation){
-    // start code
-    var sql = "CREATE TABLE " + relation.name + " (";
-    e1 = relation.e1;
-    e2 = relation.e2;
-    primary_list = []
-    for (var i=0;i<e1.attributes.length;i++){
-        var attribute = e1.attributes[i];
-        if(attribute.is_key){
-            sql += attribute.name + " " + attribute.data_type;
-            primary_list.push([attribute.name, e1.name]);
-        }
-    }
-    for (var i=0;i<e2.attributes.length;i++){
-        var attribute = e2.attributes[i];
-        if(attribute.is_key){
-            sql += attribute.name + " " + attribute.data_type;
-            primary_list.push([attribute.name, e2.name]);
-        }
-    }
-    sql += " PRIMARY KEY (";
-    for (var i=0;i<primary_list.length;i++){
-        sql += primary_list[i][0];
-        if(i!=primary_list.length-1){
-            sql += ", ";
-        }
-    }
-    for (var i=0;i<primary_list.length;i++){
-        sql += "), FOREIGN KEY (" + primary_list[i][0] + ") REFERENCES " + primary_list[i][1]+",";
-    }
-    sql += "));\n";
-    return sql;
-    // end code
+// function mtmrelation_to_sql(relation){
+//     // start code
+//     var sql = "CREATE TABLE " + relation.name + " (";
+//     e1 = relation.e1;
+//     e2 = relation.e2;
+//     primary_list = []
+//     for (var i=0;i<e1.attributes.length;i++){
+//         var attribute = e1.attributes[i];
+//         if(attribute.is_key){
+//             sql += attribute.name + " " + attribute.data_type;
+//             primary_list.push([attribute.name, e1.name]);
+//         }
+//     }
+//     for (var i=0;i<e2.attributes.length;i++){
+//         var attribute = e2.attributes[i];
+//         if(attribute.is_key){
+//             sql += attribute.name + " " + attribute.data_type;
+//             primary_list.push([attribute.name, e2.name]);
+//         }
+//     }
+//     sql += " PRIMARY KEY (";
+//     for (var i=0;i<primary_list.length;i++){
+//         sql += primary_list[i][0];
+//         if(i!=primary_list.length-1){
+//             sql += ", ";
+//         }
+//     }
+//     for (var i=0;i<primary_list.length;i++){
+//         sql += "), FOREIGN KEY (" + primary_list[i][0] + ") REFERENCES " + primary_list[i][1]+",";
+//     }
+//     sql += "));\n";
+//     return sql;
+//     // end code
 
-}
+// }
 
 
-function convert_ER_to_SQL(er){
-    // for each entity, create a table
-    // for each relation, create a table
-    // for each attribute, create a column
-    // for each relation, create a foreign key
-    // for each weak entity, create a foreign key
+// function convert_ER_to_SQL(er){
+//     // for each entity, create a table
+//     // for each relation, create a table
+//     // for each attribute, create a column
+//     // for each relation, create a foreign key
+//     // for each weak entity, create a foreign key
 
-    // start code
-    var sql = "";
-    for (var i = 0; i < er.entities.length; i++){
-        var entity = er.entities[i];
-        sql += "CREATE TABLE " + entity.name + " (";
-        for (var j = 0; j < entity.attributes.length; j++){
-            var attribute = entity.attributes[j];
-            sql += attribute.name + " " + attribute.data_type;
-            if (attribute.is_key){
-                sql += " PRIMARY KEY";
-            }
-            if (j != entity.attributes.length - 1){
-                sql += ", ";
-            }
-        }
-        sql += ");\n";
-    }
+//     // start code
+//     var sql = "";
+//     for (var i = 0; i < er.entities.length; i++){
+//         var entity = er.entities[i];
+//         sql += "CREATE TABLE " + entity.name + " (";
+//         for (var j = 0; j < entity.attributes.length; j++){
+//             var attribute = entity.attributes[j];
+//             sql += attribute.name + " " + attribute.data_type;
+//             if (attribute.is_key){
+//                 sql += " PRIMARY KEY";
+//             }
+//             if (j != entity.attributes.length - 1){
+//                 sql += ", ";
+//             }
+//         }
+//         sql += ");\n";
+//     }
 
-    // deal with weak entities
-    for (var i = 0; i < er.entities.length; i++){
-        var entity = er.entities[i];
-        if (entity.is_weak){
-            sql += "ALTER TABLE " + entity.name + " ADD FOREIGN KEY (";
-            var relation = er.relations[i];
-            var weak_entity = relation.entities[0];
-            sql += weak_entity.name + ") REFERENCES " + weak_entity.name + ";\n";
-        }
-    }
+//     // deal with weak entities
+//     for (var i = 0; i < er.entities.length; i++){
+//         var entity = er.entities[i];
+//         if (entity.is_weak){
+//             sql += "ALTER TABLE " + entity.name + " ADD FOREIGN KEY (";
+//             var relation = er.relations[i];
+//             var weak_entity = relation.entities[0];
+//             sql += weak_entity.name + ") REFERENCES " + weak_entity.name + ";\n";
+//         }
+//     }
 
-    for (var i = 0; i < er.relations.length; i++){
-        var relation = er.relations[i];
-        sql += "CREATE TABLE " + relation.name + " (";
-        for (var j = 0; j < relation.entities.length; j++){
-            var entity = relation.entities[j];
-            sql += entity.name + " " + entity.data_type;
-            if (j != relation.entities.length - 1){
-                sql += ", ";
-            }
-        }
-        sql += ");\n";
-    }
+//     for (var i = 0; i < er.relations.length; i++){
+//         var relation = er.relations[i];
+//         sql += "CREATE TABLE " + relation.name + " (";
+//         for (var j = 0; j < relation.entities.length; j++){
+//             var entity = relation.entities[j];
+//             sql += entity.name + " " + entity.data_type;
+//             if (j != relation.entities.length - 1){
+//                 sql += ", ";
+//             }
+//         }
+//         sql += ");\n";
+//     }
 
-    return sql;
-    // end code
-}
+//     return sql;
+//     // end code
+// }
 
