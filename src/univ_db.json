@@ -91,14 +91,59 @@
             {
                 "name": "time_slot_id",
                 "type": "int",
-                "is_key": true
+                "is_key": true 
+                // check for multiple attributes
             }
         ]
     },
     {
         "name":"classroom",
         "is_weak":false,
+        "attributes":[
+          {
+            "name":"building",
+            "type": "string",
+            "is_key": true
+          },
+          {
+            "name":"room_number",
+            "type":"int",
+            "is_key":true
+          },
+          {
+            "name":"capacity",
+            "type":"int",
+            "is_key":false
+          }
+        ]
+    },
+    {
+      "name":"course",
+      "is_weak":false,
+      "attributes":[
+        {
+          "name":"course_id",
+          "type":"string",
+          "is_key":true
+        },
+        {
+          "name":"title",
+          "type":"string",
+          "is_key":false
+        },
+        {
+          "name":"credits",
+          "type":"int",
+          "is_key":false
+        }
+      ]
     }
   ],
-  "relations": []
+  "relations": [
+    {
+      "name":"stud_dept",
+      "is_weak":false,
+      "e1"
+    }
+  ]
 }

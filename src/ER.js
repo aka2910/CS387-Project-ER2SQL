@@ -19,10 +19,14 @@ class Attribute{
 }
 
 class Relation{
-    constructor(name, e1,e2,c1,c2, is_weak){
+    constructor(name, e1,e2,c1,c2,p1,p2, is_weak){
         this.name = name;
-        this.entities = [e1, e2];
-        this.cardinality = [c1,c2];
+        this.e1 = e1 
+        this.e2 = e2;
+        this.c1 = c1
+        this.c2 = c2;
+        this.p1 = p1;
+        this.p2 = p2;
         this.is_weak = is_weak;
     }
 
