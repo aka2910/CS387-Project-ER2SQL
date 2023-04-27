@@ -11,7 +11,7 @@ class Entity{
 }
 
 class Attribute{
-    constructor(name,  data_type, is_key=False, is_null=True){
+    constructor(name,  data_type, is_key=false, is_null=true){
         this.name = name;
         this.data_type = data_type;
         this.is_key = is_key;
@@ -51,6 +51,11 @@ class ER{
     }
 }
 
+// parse univ_db.json to ER object
+// var fs = require('fs');
+// var json = fs.readFileSync('univ_db.json', 'utf8');
+// var er = convert_json_to_ER(json);
+// console.log(er);
 
 
 // frontend json -> parsed json -> ER class -> SQL

@@ -92,7 +92,6 @@
                 "name": "time_slot_id",
                 "type": "int",
                 "is_key": true 
-                // check for multiple attributes
             }
         ]
     },
@@ -221,7 +220,8 @@
       "p1":"partial",
       "e2":"section",
       "c2":"many",
-      "p2":"total"
+      "p2":"total",
+      "attributes":[]
     },
     {
       "name":"sec_class",
@@ -231,7 +231,8 @@
       "p1":"partial",
       "e2":"section",
       "c2":"many",
-      "p2":"total"
+      "p2":"total",
+      "attributes":[]
     },
     {
       "name":"sec_time_slot",
@@ -241,7 +242,8 @@
       "p1":"partial",
       "e2":"section",
       "c2":"many",
-      "p2":"total"
+      "p2":"total",
+      "attributes":[]
     }
   ]
 }
