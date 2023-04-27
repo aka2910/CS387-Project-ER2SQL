@@ -465,6 +465,9 @@
           $(go.Shape,  // the arrowhead
             { fromArrow: "backward", strokeWidth: 0, fill: "gray", visible: false },
             new go.Binding("visible", "from_arrow").makeTwoWay()),
+          $(go.TextBlock,
+            { alignmentFocus: new go.Spot(0, 1, -4, 0), editable: true, stroke: "#ffffff" },
+            new go.Binding("text").makeTwoWay())  // TwoWay due to user editing with TextEditingTool
           // $(go.Panel, "Auto",  // the link label, normally not visible
           //   { visible: true, name: "LABEL1", segmentIndex: 0, segmentFraction: 0.5, segmentOrientation: go.Link.OrientUpright },
           //   new go.Binding("visible", "visible").makeTwoWay(),
