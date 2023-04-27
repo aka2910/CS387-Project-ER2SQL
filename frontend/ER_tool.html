@@ -26,7 +26,10 @@
           {
             "LinkDrawn": showLinkLabel,  // this DiagramEvent listener is defined below
             "LinkRelinked": showLinkLabel,
-            "undoManager.isEnabled": true  // enable undo & redo
+            "undoManager.isEnabled": true,  // enable undo & redo
+            "allowZoom": true,
+            "allowHorizontalScroll": true,
+            "allowVerticalScroll": true,
           });
 
       // when the document is modified, add a "*" to the title and enable the "Save" button
@@ -270,7 +273,7 @@
           makePort("B", go.Spot.Bottom, go.Spot.BottomSide, true, false)
         ));
 
-        myDiagram.nodeTemplateMap.add("Relation Attribute",  // the default category
+      myDiagram.nodeTemplateMap.add("Relation Attribute",  // the default category
         $(go.Node, "Table", nodeStyle(),
           // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
           $(go.Panel, "Auto",
@@ -293,7 +296,7 @@
           makePort("B", go.Spot.Bottom, go.Spot.BottomSide, true, false)
         ));
 
-      myDiagram.nodeTemplateMap.add("Weak Entity", 
+      myDiagram.nodeTemplateMap.add("Weak Entity",
         $(go.Node, "Table", nodeStyle(),
           // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
           $(go.Panel, "Auto",
