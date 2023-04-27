@@ -11,10 +11,11 @@ class Entity{
 }
 
 class Attribute{
-    constructor(name,  data_type, is_key=False){
+    constructor(name,  data_type, is_key=False, is_null=True){
         this.name = name;
         this.data_type = data_type;
         this.is_key = is_key;
+        this.is_null = is_null;
      }
 }
 
