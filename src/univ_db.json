@@ -143,7 +143,105 @@
     {
       "name":"stud_dept",
       "is_weak":false,
-      "e1"
+      "e1":"department",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"student",
+      "c2":"many",
+      "p2":"total",
+      "attributes": []
+    },
+    {
+      "name":"inst_dept",
+      "is_weak":false,
+      "e1":"department",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"instructor",
+      "c2":"many",
+      "p2":"total",
+      "attributes": []
+    },
+    {
+      "name":"advisor",
+      "is_weak":false,
+      "e1":"instructor",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"student",
+      "c2":"many",
+      "p2":"partial",
+      "attributes": []
+    },
+    {
+      "name":"takes",
+      "is_weak":false,
+      "e1":"student",
+      "c1":"many",
+      "p1":"partial",
+      "e2":"section",
+      "c2":"many",
+      "p2":"partial",
+      "attributes":[
+        {
+          "name":"grade",
+          "type":"int",
+          "is_key":false
+        }
+      ]
+    },
+    {
+      "name":"teaches",
+      "is_weak":false,
+      "e1":"instructor",
+      "c1":"many",
+      "p1":"partial",
+      "e2":"section",
+      "c2":"many",
+      "p2":"total",
+      "attributes":[]
+    },
+    {
+      "name":"course_dept",
+      "is_weak":false,
+      "e1":"department",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"course",
+      "c2":"many",
+      "p2":"total",
+      "attributes":[]
+    },
+    {
+      "name":"sec_course",
+      "is_weak":true,
+      "weak":"section",
+      "e1":"course",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"section",
+      "c2":"many",
+      "p2":"total"
+    },
+    {
+      "name":"sec_class",
+      "is_weak":false,
+      "e1":"classroom",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"section",
+      "c2":"many",
+      "p2":"total"
+    },
+    {
+      "name":"sec_time_slot",
+      "is_weak":false,
+      "e1":"time_slot",
+      "c1":"one",
+      "p1":"partial",
+      "e2":"section",
+      "c2":"many",
+      "p2":"total"
     }
   ]
 }
