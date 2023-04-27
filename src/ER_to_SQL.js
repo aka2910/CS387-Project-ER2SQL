@@ -1,7 +1,5 @@
 import { Table, Foreign_Key } from "./Schema";
 
-
-
 function ER_to_SQL(er){
     var table_map = {};
     for(var i = 0; i < er.entities.length; i++){
@@ -32,6 +30,13 @@ function ER_to_SQL(er){
             weak_table = table_map[weak_entity.name];
             ident_entity = entity_map[r.e2];
             ident_table = table_map[ident_entity.name];
+            for (var j=0; j<r.attributes.length; j++){
+                a = r.attributes[j];
+                weak_table.addAttribute(a);
+                if(a.is_key){
+                    weak_table.addPrimaryKey(a.name);
+                }
+            }
             for(var j = 0; j < ident_entity.attributes.length; j++){
                 a = ident_entity.attributes[j];
                 weak_table.addAttribute(a);
