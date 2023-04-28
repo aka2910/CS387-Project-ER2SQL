@@ -4,12 +4,8 @@ var ER_to_SQL = require('../src/ER_to_SQL.js');
 var fs = require('fs');
 
 /* GET home page. */
-router.get('/',  function(req, res, next) {
-  // read text from frontend_univ.json
-  var json = fs.readFileSync('public/frontend_univ.json', 'utf8');
-  var text = JSON.parse(json);
-  text = JSON.stringify(text, null, 2);
-  res.render('Er_tool', { title: 'Express' , text: text});
+router.get('/', function(req, res, next) {
+  res.render('ER_tool', { title: 'Express' });
 });
 
 router.post('/er_to_sql', function(req, res, next) {
