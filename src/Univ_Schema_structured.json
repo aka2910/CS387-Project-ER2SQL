@@ -261,7 +261,7 @@
       "attributes": [
         {
           "name": "grade",
-          "type": "varchar(4)",
+          "type": "varchar(2)",
           "is_key": false,
           "key": -37
         }

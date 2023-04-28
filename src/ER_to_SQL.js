@@ -1,11 +1,13 @@
-var {Entity, Attribute, Relation, ER} = require('./ER.js');
-var er = require('./json_convert.js');
+var {Entity, Attribute, Relation, ER} = require('../src/ER.js');
+var Parsed_to_Classes = require('./json_convert.js');
+var Frontend_to_Parsed = require('./parsed_to_structured.js');
 var {Table, Foreign_Key} = require('./Schema.js');
 
-Vertices = [];
-Edges = [];
-
-function ER_to_SQL(er){
+function ER_to_SQL(frontend_json){
+    var Parsed_Json = Frontend_to_Parsed(frontend_json);
+    var er = Parsed_to_Classes(Parsed_Json);
+    Vertices = [];
+    Edges = [];
     var table_map = {};
     var entity_map = er.entity_map;
     for(var i = 0; i < er.entities.length; i++){
@@ -218,8 +220,9 @@ function ER_to_SQL(er){
         table = table_map[topological_sort[i]];
         table.print_sql();
     }
-
-
+    return "Hello";
 }
 
-ER_to_SQL(er);
+module.exports = ER_to_SQL;
+
+// ER_to_SQL(er);

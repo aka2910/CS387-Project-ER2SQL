@@ -1,6 +1,8 @@
 var {Entity, Attribute, Relation, ER} = require('./ER.js');
 
-function convertToStructuredJson(parsedJson) {
+function convertToStructuredJson(Json) {
+
+  var parsedJson = JSON.parse(Json);
     // let weak_entities = [];
     // let weak_relations = [];
     // let weak_entitynames = [];
@@ -234,12 +236,12 @@ function convertToStructuredJson(parsedJson) {
 }
   
 
-    var fs = require('fs');
-    var json = fs.readFileSync('Univ_Schema.json', 'utf8');
-    var parsedJson = JSON.parse(json);
-    var structuredJson = convertToStructuredJson(parsedJson);
-    fs.writeFileSync('Univ_Schema_structured.json', JSON.stringify(structuredJson, null, 2), 'utf8');
-    console.log("Structured JSON written to Univ_Schema_structured.json");
+    // var fs = require('fs');
+    // var json = fs.readFileSync('Univ_Schema.json', 'utf8');
+    // var parsedJson = JSON.parse(json);
+    // var structuredJson = convertToStructuredJson(parsedJson);
+    // fs.writeFileSync('Univ_Schema_structured.json', JSON.stringify(structuredJson, null, 2), 'utf8');
+    // console.log("Structured JSON written to Univ_Schema_structured.json");
 
-    module.exports = {convertToStructuredJson};
+    module.exports = convertToStructuredJson;
   

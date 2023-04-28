@@ -34,7 +34,7 @@ function convert_json_to_ER(json) {
     return er;
 }
 
-var fs = require('fs');
-var json = fs.readFileSync('univ_db.json', 'utf8');
-er=convert_json_to_ER(json);
-module.exports = er;
+// var fs = require('fs');
+// var json = fs.readFileSync('Univ_Schema_structured.json', 'utf8');
+// er=convert_json_to_ER(json);
+module.exports = convert_json_to_ER;
