@@ -663,25 +663,4 @@ function init() {
     // setTimeout(() => svgWindow.print(), 1);
   }
   window.addEventListener('DOMContentLoaded', init);
-  function callER(){
-    let frontend_json = document.getElementById("mySavedModel").value;
-    // console.log(frontend_json);
-    let backend_json = JSON.parse(frontend_json);
-    fetch('http://localhost:3000/er_to_sql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(backend_json),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-      document.getElementById("outputSQL").value = data["sql"];
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-      // ajax call to backend
-
-    }
+ 

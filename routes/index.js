@@ -15,7 +15,7 @@ router.get('/dashboard/:uid', async function(req, res, next) {
     const result = await pool.query("SELECT json FROM er WHERE id = $1", [uid]);
     var text = result.rows[0].json;
     console.log(text)
-    res.render('ER_tool', {text: JSON.stringify(text)});
+    res.render('ER_tool', {text: JSON.stringify(text), host: request.headers.host});
   }
   catch (err) {
     console.error(err.message);
