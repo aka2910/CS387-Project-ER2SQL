@@ -145,7 +145,7 @@
     let frontend_json = document.getElementById("mySavedModel").value;
     // console.log(frontend_json);
     let backend_json = JSON.parse(frontend_json);
-    fetch(`<%= host %>/er_to_sql`, {
+    fetch(`er_to_sql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
