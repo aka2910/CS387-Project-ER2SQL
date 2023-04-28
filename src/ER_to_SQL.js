@@ -43,9 +43,18 @@ function ER_to_SQL(frontend_json){
         r = er.relations[i];
         // console.log(r);
         if(r.is_weak){
-            weak_entity = entity_map[r.e2.name];
-            weak_table = table_map[weak_entity.name];
-            ident_entity = entity_map[r.e1.name];
+            var weak_name, ident_name;
+            if(r.e1.is_weak){
+                weak_name = r.e1.name;
+                ident_name = r.e2.name;
+            }
+            else{
+                weak_name = r.e2.name;
+                ident_name = r.e1.name;
+            }
+            weak_entity = entity_map[weak_name];
+            weak_table = table_map[weak_name];
+            ident_entity = entity_map[ident_name];
             ident_table = table_map[ident_entity.name];
             for (var j=0; j<r.attributes.length; j++){
                 attr = r.attributes[j];
@@ -183,8 +192,12 @@ function ER_to_SQL(frontend_json){
                 var t1 = table_map[r.e1.name];
                 var t2 = table_map[r.e2.name];
                 if(r.p1=='total' && r.p2=='partial'){
-                    t1,t2 = t2,t1
-                    e1,e2 = e2,e1
+                    var temp = t1;
+                    t1 = t2;
+                    t2 = temp;
+                    var temp = e1;
+                    e1 = e2;
+                    e2 = temp;
                 }
                 keys_list = [];
                 for(var j=0;j<t1.attributes.length;j++){
