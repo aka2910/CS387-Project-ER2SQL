@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var ER_to_SQL = require('../src/ER_to_SQL.js');
 var fs = require('fs');
-const pool = require('./middleware/db');
+const pool = require('../middleware/db.js');
 const crypto = require('crypto');
+require('dotenv').config();
 
 
 /* GET home page. */
@@ -63,7 +64,7 @@ router.get('/load', async function(req, res, next) {
   // load all saved ER diagrams
   try {
     const result = await pool.query("SELECT id, name, description FROM er");
-    res.json({'res': result.rows});
+    res.render('index', {res: result.rows});
   }
   catch (err) {
     console.error(err.message);
