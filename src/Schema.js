@@ -47,7 +47,7 @@ class Table{
         }
         sql = sql.slice(0, -2);
         sql += "\n);\n";
-        console.log(sql);
+        // console.log(sql);
         return sql;
     }
 }

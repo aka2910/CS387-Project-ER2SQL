@@ -2,7 +2,7 @@ var {Entity, Attribute, Relation, ER } = require('./ER.js');
 
 function convert_json_to_ER(json) {
     // create ER object from json   
-    json_obj = JSON.parse(json);
+    json_obj = (json);
     var er = new ER();
     // stoe in a map entity name -> entity
     for (var i = 0; i < json_obj.entities.length; i++) {

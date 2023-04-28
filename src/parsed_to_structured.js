@@ -1,8 +1,9 @@
 var {Entity, Attribute, Relation, ER} = require('./ER.js');
 
 function convertToStructuredJson(Json) {
+  console.log("Converting to structured json");
 
-  var parsedJson = JSON.parse(Json);
+  var parsedJson = (Json);
     // let weak_entities = [];
     // let weak_relations = [];
     // let weak_entitynames = [];
@@ -230,8 +231,10 @@ function convertToStructuredJson(Json) {
       entities: entities,
       relations: relations
     };
+    console.log("returing strcutired json");
     // return the entities and relations
     return entitiesAndRelations;
+
 
 }
   

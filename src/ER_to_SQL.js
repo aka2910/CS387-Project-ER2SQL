@@ -4,6 +4,8 @@ var Frontend_to_Parsed = require('./parsed_to_structured.js');
 var {Table, Foreign_Key} = require('./Schema.js');
 
 function ER_to_SQL(frontend_json){
+    var final_sql = "";
+
     var Parsed_Json = Frontend_to_Parsed(frontend_json);
     var er = Parsed_to_Classes(Parsed_Json);
     Vertices = [];
@@ -218,9 +220,9 @@ function ER_to_SQL(frontend_json){
 
     for(var i=0;i<topological_sort.length;i++){
         table = table_map[topological_sort[i]];
-        table.print_sql();
+        final_sql+=table.print_sql();
     }
-    return "Hello";
+    return final_sql;
 }
 
 module.exports = ER_to_SQL;
