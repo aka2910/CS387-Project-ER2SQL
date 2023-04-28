@@ -10,7 +10,7 @@ function convert_json_to_ER(json) {
         var attributes = [];
         for (var j = 0; j < entity.attributes.length; j++) {
             var attribute = entity.attributes[j];
-            attributes.push(new Attribute(attribute.name, attribute.data_type, attribute.is_key));
+            attributes.push(new Attribute(attribute.name, attribute.type, attribute.is_key));
         }
         er.addEntity(new Entity(entity.name, attributes, entity.is_weak));
         er.entity_map[entity.name] = er.entities[i];
@@ -27,7 +27,7 @@ function convert_json_to_ER(json) {
         var attributes = [];
         for (var j = 0; j < relation.attributes.length; j++) {
             var attribute = relation.attributes[j];
-            attributes.push(new Attribute(attribute.name, attribute.data_type, attribute.is_key));
+            attributes.push(new Attribute(attribute.name, attribute.type, attribute.is_key));
         }
         er.addRelation(new Relation(relation.name, e1, e2, c1, c2, p1, p2, relation.is_weak, attributes));
     }
@@ -37,5 +37,4 @@ function convert_json_to_ER(json) {
 var fs = require('fs');
 var json = fs.readFileSync('univ_db.json', 'utf8');
 er=convert_json_to_ER(json);
-
 module.exports = er;
