@@ -1,3 +1,5 @@
+
+
 class Entity{
     constructor(name, attributes, is_weak){
         this.name = name;
@@ -29,7 +31,7 @@ class Relation{
         this.p1 = p1;
         this.p2 = p2;
         this.is_weak = is_weak;
-        this.attribute = attribute;
+        this.attributes = attribute;
     }
 
     addAttribute(attribute){
@@ -41,6 +43,7 @@ class ER{
     constructor(){
         this.entities = [];
         this.relations = [];
+        this.entity_map = {};
     }
     addEntity(entity){
         this.entities.push(entity);
@@ -51,11 +54,12 @@ class ER{
     }
 }
 
-// parse univ_db.json to ER object
+module.exports = {Entity, Attribute, Relation, ER};
+
+//parse univ_db.json to ER object
 // var fs = require('fs');
+// var convert_json_to_ER = require('./json_convert.js');
 // var json = fs.readFileSync('univ_db.json', 'utf8');
-// var er = convert_json_to_ER(json);
-// console.log(er);
 
 
 // frontend json -> parsed json -> ER class -> SQL

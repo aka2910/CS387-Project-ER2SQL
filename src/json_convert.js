@@ -1,9 +1,10 @@
+var {Entity, Attribute, Relation, ER } = require('./ER.js');
+
 function convert_json_to_ER(json) {
     // create ER object from json   
     json_obj = JSON.parse(json);
     var er = new ER();
     // stoe in a map entity name -> entity
-    var entity_map = {};
     for (var i = 0; i < json_obj.entities.length; i++) {
         var entity = json_obj.entities[i];
         var attributes = [];
@@ -12,13 +13,13 @@ function convert_json_to_ER(json) {
             attributes.push(new Attribute(attribute.name, attribute.data_type, attribute.is_key));
         }
         er.addEntity(new Entity(entity.name, attributes, entity.is_weak));
-        entity_map[entity.name] = er.entities[i];
+        er.entity_map[entity.name] = er.entities[i];
     }
 
     for (var i = 0; i < json_obj.relations.length; i++) {
         var relation = json_obj.relations[i];
-        var e1 = entity_map[relation.e1];
-        var e2 = entity_map[relation.e2];
+        var e1 = er.entity_map[relation.e1];
+        var e2 = er.entity_map[relation.e2];
         var c1 = relation.c1;
         var c2 = relation.c2;
         var p1 = relation.p1;
@@ -32,3 +33,9 @@ function convert_json_to_ER(json) {
     }
     return er;
 }
+
+var fs = require('fs');
+var json = fs.readFileSync('univ_db.json', 'utf8');
+er=convert_json_to_ER(json);
+
+module.exports = er;

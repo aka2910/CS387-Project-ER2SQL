@@ -1,5 +1,4 @@
-
-export class Table{
+class Table{
     constructor(name){
         this.name = name;
         this.attributes = [];
@@ -48,14 +47,17 @@ export class Table{
         }
         sql = sql.slice(0, -2);
         sql += "\n);\n";
+        console.log(sql);
         return sql;
     }
 }
 
-export class Foreign_Key{
+class Foreign_Key{
     constructor(keys, reference){
         this.keys = keys;
         this.reference = reference;
     }
 }
+
+module.exports = {Table, Foreign_Key};
 
