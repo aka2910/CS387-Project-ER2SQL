@@ -582,6 +582,17 @@ function init() {
     }
 
   } // end init
+  function clearDiagram() {
+    clearjson =   {
+        "class": "GraphLinksModel",
+        "linkFromPortIdProperty": "fromPort",
+        "linkToPortIdProperty": "toPort",
+        "nodeDataArray": [],
+        "linkDataArray": []
+      }
+    myDiagram.model = go.Model.fromJson(clearjson);
+    document.getElementById("mySavedModel").value = myDiagram.model.toJson();
+  }
 
 
   // Show the diagram's model in JSON format that the user may edit
@@ -612,7 +623,7 @@ function init() {
       x = bnds.x;
       y += printSize.height;
     }
-    setTimeout(() => svgWindow.print(), 1);
+    // setTimeout(() => svgWindow.print(), 1);
   }
   window.addEventListener('DOMContentLoaded', init);
   function callER(){
