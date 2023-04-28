@@ -580,8 +580,45 @@ function init() {
       animation.add(diagram, 'opacity', 0, 1);
       animation.start();
     }
-
   } // end init
+
+  function savetoDB(){
+    var json = myDiagram.model.toJson();
+    // pop an alert to ask for name and description in alert box
+    var name = prompt("Please enter the name of the ERD", "");
+    var description = prompt("Please enter the description of the ERD", "");
+
+    // send the json to the server
+    fetch('/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            json: json,
+            name: name,
+            description: description
+        })
+    }).then(function (response) {
+        return response.json();
+    }
+    ).then(function (text) {
+        // console.log('POST response: ');
+        // // Should be 'OK' if everything was successful
+        // console.log(text);
+        // //
+        // if (text == "OK"){
+        //   alert("Saved successfully!")
+        // }
+        // else{
+        //     alert("Error! Please try again.")
+        // }
+    });
+
+
+
+  }
+
   function clearDiagram() {
     clearjson =   {
         "class": "GraphLinksModel",

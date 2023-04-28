@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>home</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <!-- create a button to go to dashboard pageat /dashboard -->
+    <a href="/dashboard">Dashboard</a>
+    <!-- Show multiple cards for eqach model -->
+    <!-- use for loop  on res which has description name and uid-->
+    <% for(var i=0; i<res.length; i++) { %>
+      <div class="card">
+        <h2><%= res[i].name %></h2>
+        <p><%= res[i].description %></p>
+        <a href="/dashboard/<%= res[i].uid %>">View</a>
+      </div>
+    <% } %>
+
+
+
   </body>
 </html>
