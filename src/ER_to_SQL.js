@@ -2,12 +2,16 @@ var {Entity, Attribute, Relation, ER} = require('./ER.js');
 var er = require('./json_convert.js');
 var {Table, Foreign_Key} = require('./Schema.js');
 
+Vertices = [];
+Edges = [];
+
 function ER_to_SQL(er){
     var table_map = {};
     var entity_map = er.entity_map;
     for(var i = 0; i < er.entities.length; i++){
         e = er.entities[i];
         var table = new Table(e.name);
+        Vertices.push(e.name);
         for(var j = 0; j < e.attributes.length; j++){
             attr = e.attributes[j];
             table.addAttribute(attr);
@@ -49,6 +53,7 @@ function ER_to_SQL(er){
                 
             }
             foreign = new Foreign_Key(keys_list, ident_table.name);
+            Edges.push([ident_table.name, weak_table.name]);
             weak_table.addForeignKey(foreign);
             table_map[weak_entity.name] = weak_table;
             entity_map[weak_entity.name] = weak_entity;
@@ -60,6 +65,7 @@ function ER_to_SQL(er){
         // Assuming partial participation for now
             if(r.c1=="many" && r.c2=="many"){
                 var table = new Table(r.name);
+                Vertices.push(r.name);
                 for(var j = 0; j < r.attributes.length; j++){
                     attr = r.attributes[j];
                     table.addAttribute(attr);
@@ -82,6 +88,7 @@ function ER_to_SQL(er){
                     }
                 }
                 foreign = new Foreign_Key(keys_list, e1.name);
+                Edges.push([e1.name, table.name]);
                 table.addForeignKey(foreign);
                 keys_list = [];
                 for (var j = 0; j < e2.attributes.length; j++) {
@@ -96,6 +103,7 @@ function ER_to_SQL(er){
                     }
                 }
                 foreign = new Foreign_Key(keys_list, e2.name);
+                Edges.push([e2.name, table.name]);
                 table.addForeignKey(foreign);
                 table_map[r.name] = table;
             }
@@ -120,6 +128,7 @@ function ER_to_SQL(er){
                     }
                 }
                 foreign = new Foreign_Key(keys_list, t2.name);
+                Edges.push([t2.name, t1.name]);
                 t1.addForeignKey(foreign);
                 table_map[r.e1.name] = t1;
             }
@@ -147,6 +156,7 @@ function ER_to_SQL(er){
                     }
                 }
                 foreign = new Foreign_Key(keys_list, t1.name);
+                Edges.push([t1.name, t2.name]);
                 t2.addForeignKey(foreign);
                 table_map[r.e2.name] = t2;
             }
@@ -175,21 +185,40 @@ function ER_to_SQL(er){
                     }
                 }
                 foreign = new Foreign_Key(keys_list, t1.name);
+                Edges.push([t1.name, t2.name]);
                 t2.addForeignKey(foreign);
                 table_map[r.e2.name] = t2;
             }
         }
     }
-    for(var i = 0; i < er.entities.length; i++){
-        e = er.entities[i];
-        var table = table_map[e.name];
-        table.print_sql();
+    //topological sort of tables
+
+    topological_sort = [];
+    visited = {};
+    function dfs(node){
+        visited[node] = true;
+        for(var i=0;i<Edges.length;i++){
+            if(Edges[i][0]==node && !visited[Edges[i][1]]){
+                dfs(Edges[i][1]);
+            }
+        }
+        topological_sort.push(node);
     }
-    for(var i = 0; i < er.relations.length; i++){
-        if(table_map[er.relations[i].name]){
-            table_map[er.relations[i].name].print_sql();
+    for(var i=0;i<Vertices.length;i++){
+        visited[Vertices[i]] = false;
+    }
+    for(var i=0;i<Vertices.length;i++){
+        if(!visited[Vertices[i]]){
+            dfs(Vertices[i]);
         }
     }
+    topological_sort.reverse();
+
+    for(var i=0;i<topological_sort.length;i++){
+        table = table_map[topological_sort[i]];
+        table.print_sql();
+    }
+
 
 }
 
