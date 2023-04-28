@@ -7,13 +7,6 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 
-/* GET home page. */
-router.get('/dashboard', function(req, res, next) {
-  var json = fs.readFileSync('public/frontend_univ.json', 'utf8');
-  var text = JSON.parse(json);
-  text = JSON.stringify(text, null, 2);
-  res.render('ER_tool', {text: text});
-});
 
 router.get('/dashboard/:uid', async function(req, res, next) {
   var uid = req.params.uid;
@@ -21,7 +14,8 @@ router.get('/dashboard/:uid', async function(req, res, next) {
   try {
     const result = await pool.query("SELECT json FROM er WHERE id = $1", [uid]);
     var text = result.rows[0].json;
-    res.render('ER_tool', {text: text});
+    console.log(text)
+    res.render('ER_tool', {text: JSON.stringify(text)});
   }
   catch (err) {
     console.error(err.message);
@@ -29,6 +23,13 @@ router.get('/dashboard/:uid', async function(req, res, next) {
   }
 });
 
+/* GET home page. */
+router.get('/dashboard', function(req, res, next) {
+  var json = fs.readFileSync('public/frontend_univ.json', 'utf8');
+  var text = JSON.parse(json);
+  text = JSON.stringify(text, null, 2);
+  res.render('ER_tool', {text: text});
+});
 
 router.post('/er_to_sql', function(req, res, next) {
   var er = req.body;
@@ -60,17 +61,17 @@ router.post('/save', async function(req, res, next) {
   }
 });
 
-router.get('/load', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   // load all saved ER diagrams
   try {
     const result = await pool.query("SELECT id, name, description FROM er");
+    // console.log(result.rows)
     res.render('index', {res: result.rows});
   }
   catch (err) {
     console.error(err.message);
     res.json({"status": "fail"});
   }
-
 });
 
 router.get('/load/:id', async function(req, res, next) {
@@ -86,5 +87,18 @@ router.get('/load/:id', async function(req, res, next) {
   }
 });
 
+router.get('/delete/:id', async function(req, res, next) {
+  // load a specific ER diagram
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const result = await pool.query("DELETE FROM er WHERE id = $1", [id]);
+    return res.redirect('/')
+  }
+  catch (err) {
+    console.error(err.message);
+    return res.json({"status": "fail"});
+  }
+});
 
 module.exports = router;
