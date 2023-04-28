@@ -15,7 +15,7 @@ router.get('/dashboard/:uid', async function(req, res, next) {
     const result = await pool.query("SELECT json FROM er WHERE id = $1", [uid]);
     var text = result.rows[0].json;
     console.log(text)
-    res.render('ER_tool', {text: JSON.stringify(text), host: request.headers.host});
+    res.render('ER_tool', {text: JSON.stringify(text), host: req.headers.host});
   }
   catch (err) {
     console.error(err.message);
@@ -28,7 +28,7 @@ router.get('/dashboard', function(req, res, next) {
   var json = fs.readFileSync('public/frontend_univ.json', 'utf8');
   var text = JSON.parse(json);
   text = JSON.stringify(text, null, 2);
-  res.render('ER_tool', {text: text});
+  res.render('ER_tool', {text: text, host: req.headers.host});
 });
 
 router.post('/er_to_sql', function(req, res, next) {
