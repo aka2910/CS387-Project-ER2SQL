@@ -4,7 +4,7 @@ var ER_to_SQL = require('../src/ER_to_SQL.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('Er_tool', { title: 'Express' });
+  res.render('ER_tool', { title: 'Express' });
 });
 
 router.post('/er_to_sql', function(req, res, next) {
