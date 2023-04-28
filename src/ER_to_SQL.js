@@ -2,11 +2,24 @@ var {Entity, Attribute, Relation, ER} = require('../src/ER.js');
 var Parsed_to_Classes = require('./json_convert.js');
 var Frontend_to_Parsed = require('./parsed_to_structured.js');
 var {Table, Foreign_Key} = require('./Schema.js');
+var fs = require('fs');
 
 function ER_to_SQL(frontend_json){
     var final_sql = "";
 
+//    Write the frontend JSON to a file
+
+    fs.writeFile('front_end.json', JSON.stringify(frontend_json), function (err) {
+        console.log(err)
+    });
+
+
     var Parsed_Json = Frontend_to_Parsed(frontend_json);
+
+    fs.writeFile('parsed.json', JSON.stringify(Parsed_Json), function (err) {
+        console.log(err)
+    });
+
     var er = Parsed_to_Classes(Parsed_Json);
     Vertices = [];
     Edges = [];
@@ -128,7 +141,7 @@ function ER_to_SQL(frontend_json){
                         }
                         attr.is_key=false;
                         t1.addAttribute(attr);    
-                        keys_list.push('1'+attr.name);
+                        keys_list.push(attr.name);
                     }
                 }
                 foreign = new Foreign_Key(keys_list, t2.name);

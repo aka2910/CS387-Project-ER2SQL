@@ -146,7 +146,7 @@ function convertToStructuredJson(Json) {
             let relation = relations.find(relation => relation.key === node.to);
             if (relation.e1 === ""){
               relation.e1 = entity.name;
-              if(node.fromarrow === true || node.fromarrow === true){
+              if(node.from_arrow === true || node.to_arrow === true){
                 relation.c1 = "one";
               }
               else{
@@ -161,7 +161,7 @@ function convertToStructuredJson(Json) {
             }
             else{
               relation.e2 = entity.name;
-              if(node.fromarrow === true || node.fromarrow === true){
+              if(node.from_arrow === true || node.to_arrow === true){
                 relation.c2 = "one";
               }
               else{
@@ -181,7 +181,7 @@ function convertToStructuredJson(Json) {
             let relation = relations.find(relation => relation.key === node.from);
             if (relation.e1 === ""){
               relation.e1 = entity.name;
-              if(node.fromarrow === true || node.fromarrow === true){
+              if(node.from_arrow === true || node.to_arrow === true){
                 relation.c1 = "one";
               }
               else{
@@ -196,7 +196,7 @@ function convertToStructuredJson(Json) {
             }
             else{
               relation.e2 = entity.name;
-              if(node.fromarrow === true || node.fromarrow === true){
+              if(node.from_arrow === true || node.to_arrow === true){
                 relation.c2 = "one";
               }
               else{
