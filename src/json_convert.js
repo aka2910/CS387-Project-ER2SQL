@@ -1,12 +1,11 @@
-var {Entity, Attribute, Relation, ER } = require('./ER.js');
+var { Entity, Attribute, Relation, ER } = require('./ER.js');
 
 function convert_json_to_ER(json) {
     // create ER object from json   
-    json_obj = (json);
     var er = new ER();
     // stoe in a map entity name -> entity
-    for (var i = 0; i < json_obj.entities.length; i++) {
-        var entity = json_obj.entities[i];
+    for (var i = 0; i < json.entities.length; i++) {
+        var entity = json.entities[i];
         var attributes = [];
         for (var j = 0; j < entity.attributes.length; j++) {
             var attribute = entity.attributes[j];
@@ -16,8 +15,8 @@ function convert_json_to_ER(json) {
         er.entity_map[entity.name] = er.entities[i];
     }
 
-    for (var i = 0; i < json_obj.relations.length; i++) {
-        var relation = json_obj.relations[i];
+    for (var i = 0; i < json.relations.length; i++) {
+        var relation = json.relations[i];
         var e1 = er.entity_map[relation.e1];
         var e2 = er.entity_map[relation.e2];
         var c1 = relation.c1;

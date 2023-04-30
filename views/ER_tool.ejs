@@ -17,10 +17,18 @@
 
   <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <h2>ER2SQL</h2>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -52,134 +60,141 @@
       margin-left: 5%;
       margin-right: 5%;
     }
-
   </style>
   <body class="d-flex flex-column min-vh-100">
+    <div id="wrapper">
+      <div class="container">
+        <br id="sample" />
+        <div style="width: 100%; display: flex; justify-content: space-between">
+          <div
+            id="myPaletteDiv"
+            style="width: 250px; margin-right: 2px; background-color: #282c34"
+          ></div>
 
-  <div id="wrapper">
-    <div class="container">
-      <br id="sample" />
-      <div style="width: 100%; display: flex; justify-content: space-between">
-        <div
-          id="myPaletteDiv"
-          style="width: 250px; margin-right: 2px; background-color: #282c34"
-        ></div>
-
-        <div
-          id="myDiagramDiv"
-          style="flex-grow: 1; height: 750px; background-color: #282c34"
-        ></div>
+          <div
+            id="myDiagramDiv"
+            style="flex-grow: 1; height: 750px; background-color: #282c34"
+          ></div>
+        </div>
+      </div>
+      <div class="container p-4">
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <button
+              id="SaveButton"
+              onclick="save()"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              Save
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button onclick="load()" class="btn btn-primary btn-lg btn-block">
+              Load
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button onclick="callER()" class="btn btn-primary btn-lg btn-block">
+              Generate SQL
+            </button>
+          </div>
+          <div class="col-12 col-md-3">
+            <button
+              onclick="clearDiagram()"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              Clear Diagram
+            </button>
+          </div>
+        </div>
+        <div class="row justify-content-center m-3">
+          <center>
+            <button
+              onclick="savetoDB()"
+              class="btn btn-primary btn-lg pl-5 pr-5"
+            >
+              Save to DB
+            </button>
+          </center>
+        </div>
       </div>
     </div>
     <div class="container p-4">
-      <div class="row">
-        <div class="col-12 col-md-3">
-          <button
-            id="SaveButton"
-            onclick="save()"
-            class="btn btn-primary btn-lg btn-block"
-          >
-            Save
-          </button>
-        </div>
-        <div class="col-12 col-md-3">
-          <button onclick="load()" class="btn btn-primary btn-lg btn-block">
-            Load
-          </button>
-        </div>
-        <div class="col-12 col-md-3">
-          <button onclick="callER()" class="btn btn-primary btn-lg btn-block">
-            Generate SQL
-          </button>
-        </div>
-        <div class="col-12 col-md-3">
-          <button onclick="clearDiagram()" class="btn btn-primary btn-lg btn-block">
-            Clear Diagram
-          </button>
-        </div>
-      </div>
-      <div class="row justify-content-center m-3">
-        <center>
-        <button onclick="savetoDB()" class="btn btn-primary btn-lg pl-5 pr-5">
-          Save to DB
-        </button>
-      </center>
-      </div>
-    </div>
-  </div>
-  <div class="container p-4">
-    <h3 class="m-3">Generated SQL:</h3>
-    <button id="copy-sql-btn" class="btn btn-success ">📋 Copy SQL to Clipboard</button>
-    <textarea
-      id="outputSQL"
-      style="width: 100%; height: 300px"
-      class="form-control m-3"
-    ></textarea>
-    <h3 class="m-3">Diagram Model saved in JSON format:</h3>
-
-    <button id="copy-model-btn" class = "btn btn-success ">📋Copy Model to Clipboard</button>
-    <textarea
-      id="mySavedModel"
-      style="width: 100%; height: 300px"
-      class="form-control m-3"
-    >
-      <%= text %>
-    </textarea>
-    
-    <script>
-      const copySqlBtn = document.getElementById('copy-sql-btn');
-      const outputSQL = document.getElementById('outputSQL');
-      const copyModelBtn = document.getElementById('copy-model-btn');
-      const mySavedModel = document.getElementById('mySavedModel');
-    
-      copySqlBtn.addEventListener('click', () => {
-        outputSQL.select();
-        document.execCommand('copy');
-      });
-    
-      copyModelBtn.addEventListener('click', () => {
-        mySavedModel.select();
-        document.execCommand('copy');
-      });
-      function callER(){
-    let frontend_json = document.getElementById("mySavedModel").value;
-    // console.log(frontend_json);
-    let backend_json = JSON.parse(frontend_json);
-    fetch(`${window.location.origin}/er_to_sql`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(backend_json),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-      document.getElementById("outputSQL").value = data["sql"];
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-      // ajax call to backend
-
-    }
-    </script>
-    
-  </div>
-  <center>
-    <div class="col-md-4 m-4">
-      <button onclick="printDiagram()" class="btn btn-primary btn-lg btn-block">
-        Print Diagram
+      <h3 class="m-3">Generated SQL:</h3>
+      <button id="copy-sql-btn" class="btn btn-success">
+        📋 Copy SQL to Clipboard
       </button>
+      <textarea
+        id="outputSQL"
+        style="width: 100%; height: 300px"
+        class="form-control m-3"
+      ></textarea>
+      <h3 class="m-3">Diagram Model saved in JSON format:</h3>
+
+      <button id="copy-model-btn" class="btn btn-success">
+        📋Copy Model to Clipboard
+      </button>
+      <textarea
+        id="mySavedModel"
+        style="width: 100%; height: 300px"
+        class="form-control m-3"
+      >
+      <%= text %>
+    </textarea
+      >
+
+      <script>
+        const copySqlBtn = document.getElementById("copy-sql-btn");
+        const outputSQL = document.getElementById("outputSQL");
+        const copyModelBtn = document.getElementById("copy-model-btn");
+        const mySavedModel = document.getElementById("mySavedModel");
+
+        copySqlBtn.addEventListener("click", () => {
+          outputSQL.select();
+          document.execCommand("copy");
+        });
+
+        copyModelBtn.addEventListener("click", () => {
+          mySavedModel.select();
+          document.execCommand("copy");
+        });
+        function callER() {
+          let frontend_json = document.getElementById("mySavedModel").value;
+          // console.log(frontend_json);
+          let backend_json = JSON.parse(frontend_json);
+          fetch(`${window.location.origin}/er_to_sql`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(backend_json),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              document.getElementById("outputSQL").value = data["sql"];
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+          // ajax call to backend
+        }
+      </script>
     </div>
-  </center>
-  <div class="footer text-center">
-    <p class="font-weight-bold p-0 m-0">Created with 💗 in CS387</p> 
-    <!-- <p class="lead">Subarno  Akshat  Jash  Shubham</p> -->
-  </div>
+    <center>
+      <div class="col-md-4 m-4">
+        <button
+          onclick="printDiagram()"
+          class="btn btn-primary btn-lg btn-block"
+        >
+          Print Diagram
+        </button>
+      </div>
+    </center>
+    <div class="footer text-center">
+      <p class="font-weight-bold p-0 m-0">Created with 💗 in CS387</p>
+      <!-- <p class="lead">Subarno  Akshat  Jash  Shubham</p> -->
+    </div>
   </body>
-
-
 
   <link
     href="https://fonts.googleapis.com/css?family=Lato:300,400,700&swap"
@@ -193,10 +208,13 @@
     crossorigin="anonymous"
   />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-  
-  </html>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+</html>

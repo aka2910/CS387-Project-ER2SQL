@@ -1,5 +1,3 @@
-
-
 class Entity{
     constructor(name, attributes, is_weak){
         this.name = name;
