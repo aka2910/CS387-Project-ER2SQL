@@ -635,8 +635,8 @@ function clearDiagram() {
 // Show the diagram's model in JSON format that the user may edit
 function save() {
   document.getElementById("mySavedModel").value = myDiagram.model.toJson();
-  console.log(myDiagram.model)
-  console.log(myDiagram.model.linkDataArray)
+  // console.log(myDiagram.model)
+  // console.log(myDiagram.model.linkDataArray)
   myDiagram.isModified = false;
 }
 function load() {
